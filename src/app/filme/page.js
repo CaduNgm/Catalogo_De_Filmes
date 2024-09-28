@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Sidebar from "../components/sidebar/page";
+import { Salvar } from "../backend/filmes";
+import { PrismaClient } from "@prisma/client";
 
 export default function Home() {
   const { handleSubmit, register, reset } = useForm();
@@ -16,19 +18,24 @@ export default function Home() {
       setShowForm(false);
     }
   }, [editingIndex]);
+  const prisma = new PrismaClient()
+
+  
 
   function onsubmit(data) {
+    Salvar(data)
     if (editingIndex !== null) {
-      const updatedFilmes = filmes.map((filme, index) =>
+      const updatedFilmes = filmes.map((filme, index) =>{
+        Salvar(filme);
         index === editingIndex ? { ...data, id: filme.id } : filme
-      );
-      setFilmes(updatedFilmes);
+    });
     } else {
       const newContact = {
         ...data,
         id: Math.random().toString(36).substring(2),
       };
       setFilmes((prevFilmes) => [...prevFilmes, newContact]);
+
     }
     reset();
     setShowForm(false);
@@ -59,7 +66,7 @@ export default function Home() {
         <>
           <div className="flex justify-end" >
             <button
-              onClick={() => setShowForm(true)}
+              onClick={() => {setShowForm(true) ; }}
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
             >
@@ -127,7 +134,7 @@ export default function Home() {
           </table>
         </>
       ) : (
-        <form onSubmit={handleSubmit(onsubmit)} className="max-w-sm mx-auto">
+        <form onSubmit={handleSubmit(onsubmit )} className="max-w-sm mx-auto">
           <div className="mb-5">
             <label
               htmlFor="titulo"
