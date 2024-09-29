@@ -21,6 +21,25 @@ console.log(filme)
     
 
   }
+  export async function Editar(id, data) {
+    return await prisma.catalogo.update({
+        where: { id: id }, // Supondo que o ID seja numérico
+        data,
+    });
+}
+export async function Excluir(id) {
+  return await prisma.catalogo.delete({
+      where: {id: id }, 
+  });
+}
+
+
+  export async function Carregar(){
+    return await prisma.catalogo.findMany();
+  }
+
+
+
       
   
   
