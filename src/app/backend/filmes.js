@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 export async function Salvar(filme) {
 console.log(filme)
 
-    const novoFilme = await prisma.catalogo.create({
+    const novoFilme =  await prisma.catalogo.create({
         
         data: {
           titulo: filme.titulo,
@@ -23,7 +23,7 @@ console.log(filme)
   }
   export async function Editar(id, data) {
     return await prisma.catalogo.update({
-        where: { id: id }, // Supondo que o ID seja numérico
+        where: { id: id }, 
         data,
     });
 }

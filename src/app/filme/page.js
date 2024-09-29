@@ -3,17 +3,21 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Sidebar from "../components/sidebar/page";
 import { Carregar, Salvar, Editar, Excluir } from "../backend/filmes"; 
+import { CarregarGeneros } from "../backend/genero";
 
 export default function Home() {
     const { handleSubmit, register, reset } = useForm();
     const [filmes, setFilmes] = useState([]);
     const [editingIndex, setEditingIndex] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const [generos, setGeneros] = useState([]);
 
     
     useEffect(() => {
         async function fetchFilmes() {
             const obterFilmes = await Carregar();
+            const obterGeneros = await CarregarGeneros()
+            setGeneros(obterGeneros)
             setFilmes(obterFilmes); 
         }
         fetchFilmes();
@@ -157,13 +161,14 @@ export default function Home() {
                 {...register("genero")}
                 id="genero"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option value="acao">Ação</option>
-                <option value="aventura">Aventura</option>
-                <option value="drama">Drama</option>
-                <option value="terror">Terror</option>
-                <option value="comedia">Comédia</option>
-              </select>
+                >
+                {generos.map((nome)=>(
+
+                  <option value={nome.nome}>{nome.nome}</option>
+                
+                ))}
+                </select>
+               
             </div>
             <div className="mb-5">
               <label

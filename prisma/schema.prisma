@@ -21,3 +21,7 @@ model Catalogo {
   genero String
   diretor String
 }
+model Genero {
+  id      Int      @id @default(autoincrement())
+  nome   String
+}
