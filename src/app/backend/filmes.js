@@ -4,7 +4,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
 
 export async function Salvar(filme) {
-console.log(filme)
 
     const novoFilme =  await prisma.catalogo.create({
         
@@ -20,6 +19,7 @@ console.log(filme)
     )
     
 
+  
   }
   export async function Editar(id, data) {
     return await prisma.catalogo.update({
