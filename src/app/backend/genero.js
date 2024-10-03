@@ -5,16 +5,19 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
 
-export async function Salvar(genero) {
-console.log(genero)
+export async function SalvarGenero(genero) {
 
+  const generosExistentes = await prisma.genero.findMany({
+    where: { nome: genero.nome },
+});
+    if(generosExistentes.length===0){
     const novoGenero =  await prisma.genero.create({
         
         data: {
           nome: genero.nome
         }
         }
-    )
+    )}
     
 
   }

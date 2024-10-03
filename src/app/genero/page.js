@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Sidebar from "../components/sidebar/page";
-import { CarregarGeneros, Salvar, Edita, CarregarGenerosr, Excluir } from "../backend/genero"; 
+import { CarregarGeneros, Edita, CarregarGenerosr, Excluir, SalvarGenero } from "../backend/genero"; 
 
 export default function Home() {
     const { handleSubmit, register, reset } = useForm();
@@ -26,7 +26,7 @@ export default function Home() {
             const generoId = generos[editingIndex].id; 
             await Editar(generoId, data); 
         } else {
-            await Salvar(data); 
+            await SalvarGenero(data); 
         }
         const updatedGeneros = await CarregarGeneros(); 
         setGeneros(updatedGeneros); 
