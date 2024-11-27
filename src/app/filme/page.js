@@ -5,6 +5,8 @@ import Sidebar from "../components/sidebar/page";
 import { Carregar, Salvar, Editar, Excluir } from "../backend/filmes"; 
 import { CarregarGeneros } from "../backend/genero";
 import { CarregarAPI } from "../backend/ApiFIlmes";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
     const { handleSubmit, register, reset } = useForm();
@@ -61,6 +63,7 @@ export default function Home() {
 
     return (
         <div>
+          <ToastContainer/>
             <Sidebar />
             <div className="ml-64 p-4">
                 {!showForm ? (
@@ -68,7 +71,16 @@ export default function Home() {
                         <div className="flex justify-end">
                             <button
                                 
-                                onClick={()=>{CarregarAPI()
+                                onClick={()=>{CarregarAPI();
+                                  toast.success('Carregando filmes', {
+                                    position: "top-right",
+                                    autoClose: 20000, 
+                                    hideProgressBar: false, 
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined, 
+                                  });
                                   setTimeout(()=>window.location.reload(),20000);
                                 }} 
                                 type="submit"
@@ -226,6 +238,7 @@ export default function Home() {
                 required
               />
             </div>
+            <ToastContainer/>
             <button
               type="submit"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
