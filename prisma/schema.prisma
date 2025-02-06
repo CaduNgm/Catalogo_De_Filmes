@@ -20,6 +20,7 @@ model Catalogo {
   lancamento   String
   genero String
   diretor String
+  poster String
 }
 model Genero {
   id      Int      @id @default(autoincrement())

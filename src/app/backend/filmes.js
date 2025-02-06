@@ -13,6 +13,7 @@ export async function Salvar(filme) {
           diretor: filme.diretor,
           ano: filme.ano,
           lancamento: filme.lancamento,
+          poster: filme.poster,
           
         }
         }
